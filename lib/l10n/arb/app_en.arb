@@ -1,0 +1,31 @@
+{
+    "@@locale": "en",
+    "counterAppBarTitle": "Counter",
+    "loginPageHeadline": "Deliver Favourite Food",
+    "@loginPageHeadline": {
+        "description": "Headline shown on the Login Page"
+    },
+    "login": "Login",
+    "@login": {
+        "description": "Login Text"
+    },
+    "forgotPassword": "Forgot Password?",
+    "@forgotPassword": {
+        "description": "Forgot Password Text"
+    },
+    "or": "Or",
+    "@or": {
+        "description": "Or Text"
+    },
+    "dontHaveAnAccount": "Don't have an account?",
+    "@dontHaveAnAccount": {
+        "description": "Don't have an account Text"
+    },
+    "signup": "Signup",
+    "@signup": {
+        "description": "Signup Text"
+    },
+    "@counterAppBarTitle": {
+        "description": "Text shown in the AppBar of the Counter Page"
+    }
+}
