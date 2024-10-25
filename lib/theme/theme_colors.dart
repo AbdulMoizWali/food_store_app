@@ -33,12 +33,12 @@ class LightThemeColors extends ThemeColors {
 
 class DarkThemeColors extends ThemeColors {
   DarkThemeColors() {
-    super.primaryColor = const Color(0xFFEC2578);
+    super.primaryColor = const Color(0xFF1d102d);
     super.primaryVariantColor = const Color(0xFFffffff);
     super.white = const Color(0xFFFFFFFF);
-    super.blue = const Color(0xFF4a85fd);
+    super.blue = const Color(0xFF1e266b);
     super.red = const Color(0xFFc42b1c);
     super.green = const Color(0xFF1dbf73);
-    textColor = const Color(0xFF000000);
+    textColor = const Color(0xFFFFFFFF);
   }
 }

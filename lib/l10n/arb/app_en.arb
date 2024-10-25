@@ -21,6 +21,10 @@
     "@dontHaveAnAccount": {
         "description": "Don't have an account Text"
     },
+    "register": "Register",
+    "@register": {
+        "description": "Register Text"
+    },
     "signup": "Signup",
     "@signup": {
         "description": "Signup Text"

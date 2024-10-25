@@ -3,6 +3,24 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_store/theme/theme_colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+OutlineInputBorder errorBorder() {
+  return OutlineInputBorder(
+    borderSide: BorderSide(
+      color: Colors.redAccent.shade100,
+    ),
+    borderRadius: BorderRadius.circular(10.r),
+  );
+}
+
+OutlineInputBorder normalBorder() {
+  return OutlineInputBorder(
+    borderSide: const BorderSide(
+      color: Colors.white,
+    ),
+    borderRadius: BorderRadius.circular(10.r),
+  );
+}
+
 class ThemeBuilder {
   static ThemeData buildTheme(BuildContext context, Brightness brightness) {
     ThemeColors themeColors = LightThemeColors();
@@ -41,18 +59,11 @@ class ThemeBuilder {
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: themeColors.primaryVariantColor,
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.r),
-          borderSide: const BorderSide(color: Colors.black26),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.r),
-          borderSide: const BorderSide(color: Colors.black26),
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.r),
-          borderSide: const BorderSide(color: Colors.black26),
-        ),
+        border: normalBorder(),
+        enabledBorder: normalBorder(),
+        focusedBorder: normalBorder(),
+        errorBorder: errorBorder(),
+        focusedErrorBorder: errorBorder(),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
@@ -73,10 +84,11 @@ class ThemeBuilder {
       ),
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
-          // backgroundColor: themeColors.primaryColor,
-          foregroundColor: themeColors.primaryColor,
+          backgroundColor: themeColors.blue,
+          foregroundColor: themeColors.primaryVariantColor,
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
           shape: RoundedRectangleBorder(
+            // side: BorderSide(color: themeColors.primaryVariantColor),
             borderRadius: BorderRadius.circular(10.r),
           ),
         ),
