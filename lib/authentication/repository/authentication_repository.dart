@@ -1,43 +1,66 @@
 import 'dart:async';
 
+import 'package:food_store/user/model/user.dart';
 import 'package:food_store/login/api/login_api.dart';
+import 'package:food_store/signup/api/signup_api.dart';
 import 'package:food_store/utilities/exceptions/authentication_exception.dart';
 
-enum AuthenticationStatus { unknown, authenticated, unauthenticated }
+enum AuthenticationStatus { initial, unknown, authenticated, unauthenticated }
 
 class AuthenticationRepository {
-  AuthenticationRepository({required LoginApi loginApi}) : _loginApi = loginApi;
+  AuthenticationRepository({
+    required LoginApi loginApi,
+    required SignupApi signupApi,
+  })  : _loginApi = loginApi,
+        _signupApi = signupApi;
 
   final LoginApi _loginApi;
+  final SignupApi _signupApi;
+
   final _controller = StreamController<AuthenticationStatus>();
 
   Stream<AuthenticationStatus> get status async* {
-    await Future<void>.delayed(const Duration(seconds: 1));
-    yield AuthenticationStatus.unauthenticated;
+    yield AuthenticationStatus.initial;
     yield* _controller.stream;
   }
 
-  Future<void> logIn({
+  Future<User?> logIn({
     required String email,
     required String password,
   }) async {
     try {
-      await _loginApi.login(email, password);
+      final responseData = await _loginApi.login(email, password);
       _controller.add(AuthenticationStatus.authenticated);
+      final user = User.fromJson(responseData);
+      return user;
     } catch (e) {
       if (e.runtimeType == AuthenticationException) {
         _controller.add(AuthenticationStatus.unauthenticated);
         rethrow;
-        // final ae = e as AuthenticationException;
-        // logger.e(ae.message);
-        // throw AuthenticationException(ae.message);
       }
       _controller.add(AuthenticationStatus.unauthenticated);
+      return null;
     }
-    // await Future.delayed(
-    //   const Duration(milliseconds: 300),
-    //   () => _controller.add(LoginStatus.authenticated),
-    // );
+  }
+
+  Future<User?> signup({
+    required String name,
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final responseData = await _signupApi.signup(name, email, password);
+      _controller.add(AuthenticationStatus.authenticated);
+      final user = User.fromJson(responseData);
+      return user;
+    } catch (e) {
+      if (e.runtimeType == AuthenticationException) {
+        _controller.add(AuthenticationStatus.unauthenticated);
+        rethrow;
+      }
+      _controller.add(AuthenticationStatus.unauthenticated);
+      return null;
+    }
   }
 
   void logOut() {

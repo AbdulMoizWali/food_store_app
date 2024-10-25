@@ -9,6 +9,7 @@ import 'package:food_store/login/view/components/login_form/login_form.dart';
 import 'package:food_store/routes/route_path.dart';
 import 'package:food_store/routes/route_transition.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:food_store/user/repository/user_repository.dart';
 import 'package:food_store/utilities/helpers/gap.dart';
 
 class LoginPage extends StatelessWidget {
@@ -28,6 +29,7 @@ class LoginPage extends StatelessWidget {
       body: TopLeftBackground(
         child: BlocProvider(
           create: (context) => LoginBloc(
+            userRepository: context.read<UserRepository>(),
             authenticationRepository: context.read<AuthenticationRepository>(),
           ),
           child: Center(

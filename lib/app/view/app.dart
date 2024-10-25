@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:food_store/app/user/repository/user_repository.dart';
+import 'package:food_store/user/repository/user_repository.dart';
 import 'package:food_store/authentication/bloc/authentication_bloc.dart';
 import 'package:food_store/authentication/repository/authentication_repository.dart';
 import 'package:food_store/l10n/l10n.dart';
 import 'package:food_store/login/api/login_api.dart';
 import 'package:food_store/routes/route_generator.dart';
 import 'package:food_store/routes/route_path.dart';
+import 'package:food_store/signup/api/signup_api.dart';
 import 'package:food_store/theme/theme_builder.dart';
+import 'package:food_store/utilities/logger/logger.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
@@ -24,7 +26,10 @@ class _AppState extends State<App> {
   @override
   void initState() {
     super.initState();
-    _authenticationRepository = AuthenticationRepository(loginApi: LoginApi());
+    _authenticationRepository = AuthenticationRepository(
+      loginApi: LoginApi(),
+      signupApi: SignupApi(),
+    );
     _userRepository = UserRepository();
   }
 
@@ -37,8 +42,15 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     WidgetsFlutterBinding.ensureInitialized();
-    return RepositoryProvider.value(
-      value: _authenticationRepository,
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider<AuthenticationRepository>.value(
+          value: _authenticationRepository,
+        ),
+        RepositoryProvider<UserRepository>.value(
+          value: _userRepository,
+        ),
+      ],
       child: BlocProvider(
         create: (context) => AuthenticationBloc(
           authenticationRepository: _authenticationRepository,
@@ -89,10 +101,11 @@ class _AppWiewState extends State<AppWiew> {
           builder: (context, child) {
             return BlocListener<AuthenticationBloc, AuthenticationState>(
               listener: (context, state) {
+                logger.i('Authentication state: $state');
                 switch (state.status) {
                   case AuthenticationStatus.authenticated:
                     _navigator.pushNamedAndRemoveUntil(
-                      RoutePath.splash,
+                      RoutePath.home,
                       (route) => false,
                     );
                     break;
@@ -103,6 +116,7 @@ class _AppWiewState extends State<AppWiew> {
                     );
                     break;
                   case AuthenticationStatus.unknown:
+                  case AuthenticationStatus.initial:
                     break;
                 }
               },

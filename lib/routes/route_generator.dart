@@ -66,7 +66,10 @@ class NotFoundScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: Text('Page not found'),
+        child: Text(
+          'Page not found',
+          style: TextStyle(color: Colors.black),
+        ),
       ),
     );
   }

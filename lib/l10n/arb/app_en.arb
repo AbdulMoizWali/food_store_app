@@ -1,6 +1,9 @@
 {
     "@@locale": "en",
     "counterAppBarTitle": "Counter",
+    "@counterAppBarTitle": {
+        "description": "Text shown in the AppBar of the Counter Page"
+    },
     "loginPageHeadline": "Deliver Favourite Food",
     "@loginPageHeadline": {
         "description": "Headline shown on the Login Page"
@@ -29,7 +32,12 @@
     "@signup": {
         "description": "Signup Text"
     },
-    "@counterAppBarTitle": {
-        "description": "Text shown in the AppBar of the Counter Page"
+    "createAccount": "Create Account",
+    "@createAccount": {
+        "description": "Create Account Text"
+    },
+    "alreadyHaveAnAccount": "Already have an account?",
+    "@alreadyHaveAnAccount": {
+        "description": "Already have an account Text"
     }
 }

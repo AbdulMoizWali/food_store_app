@@ -2,9 +2,10 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:food_store/app/user/model/user.dart';
-import 'package:food_store/app/user/repository/user_repository.dart';
+import 'package:food_store/user/model/user.dart';
+import 'package:food_store/user/repository/user_repository.dart';
 import 'package:food_store/authentication/repository/authentication_repository.dart';
+import 'package:food_store/utilities/logger/logger.dart';
 
 part 'authentication_event.dart';
 part 'authentication_state.dart';
@@ -20,6 +21,7 @@ class AuthenticationBloc
     on<AuthenticationSubscriptionRequested>(
       _onAuthenticationSubscriptionRequested,
     );
+    on<AuthenticationLogoutPressed>(_onLogoutPressed);
   }
 
   final UserRepository _userRepository;
@@ -29,25 +31,57 @@ class AuthenticationBloc
     AuthenticationSubscriptionRequested event,
     Emitter<AuthenticationState> emit,
   ) {
+    logger.d('AuthenticationSubscriptionRequested');
     return emit.onEach(
       _authenticationRepository.status,
       onData: (status) async {
-        switch (status) {
-          case AuthenticationStatus.unauthenticated:
-            return emit(const AuthenticationState.unauthenticated());
-          case AuthenticationStatus.authenticated:
-            final user = await _tryGetUser();
-            return emit(
-              user != null
-                  ? AuthenticationState.authenticated(user)
-                  : const AuthenticationState.unauthenticated(),
-            );
-          case AuthenticationStatus.unknown:
-            return emit(const AuthenticationState.unknown());
+        logger.d('AuthenticationStatus: $status');
+        try {
+          switch (status) {
+            case AuthenticationStatus.initial:
+              final user = await _tryGetUser();
+              if (user != null) {
+                return emit(AuthenticationState.authenticated(user));
+              }
+              return emit(const AuthenticationState.unauthenticated());
+            case AuthenticationStatus.unauthenticated:
+              return emit(const AuthenticationState.unauthenticated());
+            case AuthenticationStatus.authenticated:
+              logger.d('Try get user');
+              final user = await _tryGetUser();
+              logger.d('User: $user');
+              return emit(
+                user != null
+                    ? AuthenticationState.authenticated(user)
+                    : const AuthenticationState.unauthenticated(),
+              );
+            case AuthenticationStatus.unknown:
+              logger.d('Unknown');
+              return emit(const AuthenticationState.unknown());
+
+            default:
+              logger.d('Default');
+              return emit(const AuthenticationState.unknown());
+          }
+        } catch (e) {
+          logger.e(e.toString());
         }
       },
       onError: addError,
     );
+  }
+
+  FutureOr<void> _onLogoutPressed(
+    AuthenticationLogoutPressed event,
+    Emitter<AuthenticationState> emit,
+  ) async {
+    try {
+      _authenticationRepository.logOut();
+      await _userRepository.clearUser();
+      emit(const AuthenticationState.unauthenticated());
+    } catch (e) {
+      emit(const AuthenticationState.unauthenticated());
+    }
   }
 
   Future<User?> _tryGetUser() async {

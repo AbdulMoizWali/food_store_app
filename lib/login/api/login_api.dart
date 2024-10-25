@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:food_store/utilities/api/api.dart';
 import 'package:food_store/utilities/exceptions/authentication_exception.dart';
@@ -13,18 +11,21 @@ class LoginApi extends Api {
 
   /// Login with [email] and [password].
   /// throw [AuthenticationException] if login fails.
-  Future<void> login(String email, String password) async {
+  Future<Map<String, dynamic>> login(String email, String password) async {
     try {
       final response = await dio.post('/users/login', data: {
         'email': email,
         'password': password,
       });
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setString('token', response.data['token']);
-    } on SocketException {
-      // Catching no internet or connectivity errors.
-      logger.e('No internet connection');
-      throw const AuthenticationException('No internet connection');
+      final SharedPreferencesWithCache prefsWithCache =
+          await SharedPreferencesWithCache.create(
+        cacheOptions: const SharedPreferencesWithCacheOptions(
+          // When an allowlist is included, any keys that aren't included cannot be used.
+          allowList: <String>{'token'},
+        ),
+      );
+      await prefsWithCache.setString('token', response.data['token']);
+      return response.data;
     } on DioException catch (e) {
       if (e.type == DioExceptionType.connectionError ||
           e.type == DioExceptionType.connectionTimeout ||

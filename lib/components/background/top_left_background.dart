@@ -65,7 +65,9 @@ class TopLeftBackground extends StatelessWidget {
         Positioned(
           width: 1.sw,
           height: 1.sh,
-          child: child,
+          child: SafeArea(
+            child: child,
+          ),
         ),
       ],
     );
