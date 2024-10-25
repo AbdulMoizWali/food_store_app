@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:food_store/login/api/login_api.dart';
 import 'package:food_store/utilities/exceptions/authentication_exception.dart';
-import 'package:food_store/utilities/logger/logger.dart';
 
 enum AuthenticationStatus { unknown, authenticated, unauthenticated }
 
