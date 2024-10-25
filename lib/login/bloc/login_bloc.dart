@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:food_store/login/models/password.dart';
-import 'package:food_store/login/models/email.dart';
 import 'package:food_store/authentication/repository/authentication_repository.dart';
+import 'package:food_store/login/models/email.dart';
+import 'package:food_store/login/models/password.dart';
 import 'package:food_store/utilities/exceptions/authentication_exception.dart';
 // import 'package:food_store/utilities/logger/logger.dart';
 // import 'package:food_store/utilities/logger/logger.dart';

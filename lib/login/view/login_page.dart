@@ -5,7 +5,7 @@ import 'package:food_store/components/background/top_left_background.dart';
 import 'package:food_store/contants/image_contants.dart';
 import 'package:food_store/l10n/l10n.dart';
 import 'package:food_store/login/login.dart';
-import 'package:food_store/login/view/component/login_form/login_form.dart';
+import 'package:food_store/login/view/components/login_form/login_form.dart';
 import 'package:food_store/routes/route_path.dart';
 import 'package:food_store/routes/route_transition.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
