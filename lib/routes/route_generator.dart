@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:food_store/authentication/bloc/authentication_bloc.dart';
 import 'package:food_store/login/view/login_page.dart';
 import 'package:food_store/routes/route_path.dart';
 import 'package:food_store/routes/route_transition.dart';
 import 'package:food_store/signup/view/signup_page.dart';
 import 'package:food_store/splash/splash.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RoutesGenerator {
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
@@ -64,11 +66,24 @@ class NotFoundScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
-        child: Text(
-          'Page not found',
-          style: TextStyle(color: Colors.black),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              'Page not found',
+              style: TextStyle(color: Colors.black),
+            ),
+            TextButton(
+              onPressed: () {
+                context
+                    .read<AuthenticationBloc>()
+                    .add(AuthenticationLogoutPressed());
+              },
+              child: const Text('Clear User Data'),
+            ),
+          ],
         ),
       ),
     );
