@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:food_store/routes/route_path.dart';
 import 'package:food_store/routes/route_transition.dart';
 
 class SplashPage extends StatefulWidget {
@@ -16,16 +15,6 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-  @override
-  void initState() {
-    super.initState();
-    Future.delayed(const Duration(seconds: 2), () {
-      if (mounted) {
-        Navigator.pushReplacementNamed(context, RoutePath.login);
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return const Scaffold(

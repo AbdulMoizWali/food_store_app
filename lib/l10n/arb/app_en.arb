@@ -43,5 +43,9 @@
     "categories": "Categories",
     "@categories": {
         "description": "Categories Text"
+    },
+    "fastestNearYou": "Fastest near you",
+    "@fastestNearYou":{
+        "description": "fastestNearYou Text"
     }
 }

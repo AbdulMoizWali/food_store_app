@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TopLeftBackground extends StatelessWidget {
-  const TopLeftBackground({required this.child, super.key});
+  const TopLeftBackground(
+      {required this.child, this.bottonNavigation, super.key});
 
   final Widget child;
+  final Widget? bottonNavigation;
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +71,13 @@ class TopLeftBackground extends StatelessWidget {
             child: child,
           ),
         ),
+        if (bottonNavigation != null)
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: bottonNavigation!,
+          ),
       ],
     );
   }

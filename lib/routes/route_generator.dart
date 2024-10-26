@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:food_store/authentication/bloc/authentication_bloc.dart';
+import 'package:food_store/home/home.dart';
 import 'package:food_store/login/view/login_page.dart';
+import 'package:food_store/restaurant/model/restaurant.dart';
+import 'package:food_store/restaurant/view/restaurant_page.dart';
 import 'package:food_store/routes/route_path.dart';
 import 'package:food_store/routes/route_transition.dart';
 import 'package:food_store/signup/view/signup_page.dart';
@@ -22,6 +25,13 @@ class RoutesGenerator {
 
         case RoutePath.signup:
           return SignupPage.route();
+
+        case RoutePath.home:
+          return Homepage.route();
+
+        case RoutePath.restaurant:
+          final restaurant = settings.arguments as Restaurant;
+          return RestaurantPage.route(restaurant);
 
         default:
           return RouteTransition.pageRouteBuilder(const NotFoundScreen());
@@ -53,7 +63,10 @@ class ErrorScreen extends StatelessWidget {
                 fontSize: 20,
               ),
             ),
-            Text('Error message: $message'),
+            Text(
+              'Error message: $message',
+              style: const TextStyle(color: Colors.black),
+            ),
           ],
         ),
       ),

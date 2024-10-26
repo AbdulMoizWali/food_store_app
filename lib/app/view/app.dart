@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:food_store/category/repository/category_repository.dart';
+import 'package:food_store/restaurant/repository/restaurant_repository.dart';
 import 'package:food_store/user/repository/user_repository.dart';
 import 'package:food_store/authentication/bloc/authentication_bloc.dart';
 import 'package:food_store/authentication/repository/authentication_repository.dart';
@@ -22,6 +24,8 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   late final AuthenticationRepository _authenticationRepository;
   late final UserRepository _userRepository;
+  late final CategoryRepository _categoryRepository;
+  late final RestaurantRepository _featuredRepository;
 
   @override
   void initState() {
@@ -31,6 +35,8 @@ class _AppState extends State<App> {
       signupApi: SignupApi(),
     );
     _userRepository = UserRepository();
+    _categoryRepository = CategoryRepository();
+    _featuredRepository = RestaurantRepository();
   }
 
   @override
@@ -50,8 +56,15 @@ class _AppState extends State<App> {
         RepositoryProvider<UserRepository>.value(
           value: _userRepository,
         ),
+        RepositoryProvider.value(
+          value: _categoryRepository,
+        ),
+        RepositoryProvider.value(
+          value: _featuredRepository,
+        ),
       ],
       child: BlocProvider(
+        lazy: false,
         create: (context) => AuthenticationBloc(
           authenticationRepository: _authenticationRepository,
           userRepository: _userRepository,
@@ -104,12 +117,14 @@ class _AppWiewState extends State<AppWiew> {
                 logger.i('Authentication state: $state');
                 switch (state.status) {
                   case AuthenticationStatus.authenticated:
+                    logger.i('User authenticated');
                     _navigator.pushNamedAndRemoveUntil(
                       RoutePath.home,
                       (route) => false,
                     );
                     break;
                   case AuthenticationStatus.unauthenticated:
+                    logger.i('User unauthenticated');
                     _navigator.pushNamedAndRemoveUntil(
                       RoutePath.login,
                       (route) => false,
@@ -117,6 +132,7 @@ class _AppWiewState extends State<AppWiew> {
                     break;
                   case AuthenticationStatus.unknown:
                   case AuthenticationStatus.initial:
+                    logger.i('User unknown');
                     break;
                 }
               },
