@@ -51,6 +51,7 @@ dependencies:
   icons_plus: ^5.0.0
   shared_preferences: ^2.3.2
   carousel_slider: ^5.0.0
+  input_quantity: ^2.4.1
 
 dev_dependencies:
   flutter_test:

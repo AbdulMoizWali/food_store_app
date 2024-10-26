@@ -7,7 +7,7 @@ class RestaurantRepository {
     3,
     (index) {
       return const Restaurant(
-        id: '-',
+        id: '1dsrhe2fbfd3456',
         name: 'Kinka Izakaya',
         address: '398 Church St, Toronto, ON M5B 2A2',
         restaurantLogo: ImageContants.restaurantLogo,
@@ -18,34 +18,28 @@ class RestaurantRepository {
         featuredImage: ImageContants.card,
         foods: [
           RestaurantFood(
+            id: '1',
             name: 'Udon Miso',
             price: 16,
             description: 'Thick handmade  udon noodles in a rich miso broth',
             imgUrl: ImageContants.foodInBowl,
+            restaurantId: '1dsrhe2fbfd3456',
           ),
           RestaurantFood(
+            id: '2',
             name: 'Udon Miso',
             price: 16,
             description: 'Thick handmade  udon noodles in a rich miso broth',
             imgUrl: ImageContants.foodInBowl,
+            restaurantId: '1dsrhe2fbfd3456',
           ),
           RestaurantFood(
+            id: '3',
             name: 'Udon Miso',
             price: 16,
             description: 'Thick handmade  udon noodles in a rich miso broth',
             imgUrl: ImageContants.foodInBowl,
-          ),
-          RestaurantFood(
-            name: 'Udon Miso',
-            price: 16,
-            description: 'Thick handmade  udon noodles in a rich miso broth',
-            imgUrl: ImageContants.foodInBowl,
-          ),
-          RestaurantFood(
-            name: 'Udon Miso',
-            price: 16,
-            description: 'Thick handmade  udon noodles in a rich miso broth',
-            imgUrl: ImageContants.foodInBowl,
+            restaurantId: '1dsrhe2fbfd3456',
           ),
         ],
       );

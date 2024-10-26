@@ -3,6 +3,8 @@ import 'package:food_store/authentication/bloc/authentication_bloc.dart';
 import 'package:food_store/home/home.dart';
 import 'package:food_store/login/view/login_page.dart';
 import 'package:food_store/restaurant/model/restaurant.dart';
+import 'package:food_store/restaurant/model/restaurant_food.dart';
+import 'package:food_store/restaurant/view/restaurant_food_page.dart';
 import 'package:food_store/restaurant/view/restaurant_page.dart';
 import 'package:food_store/routes/route_path.dart';
 import 'package:food_store/routes/route_transition.dart';
@@ -32,6 +34,10 @@ class RoutesGenerator {
         case RoutePath.restaurant:
           final restaurant = settings.arguments as Restaurant;
           return RestaurantPage.route(restaurant);
+
+        case RoutePath.restaurantFood:
+          final food = settings.arguments as RestaurantFood;
+          return RestaurantFoodPage.route(food);
 
         default:
           return RouteTransition.pageRouteBuilder(const NotFoundScreen());

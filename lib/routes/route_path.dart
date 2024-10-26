@@ -5,4 +5,5 @@ class RoutePath {
   static const String signup = '/signup';
   static const String home = '/home';
   static const String restaurant = '/restaurant';
+  static const String restaurantFood = '/restaurantFood';
 }
