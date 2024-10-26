@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_store/components/Card/x_card.dart';
 import 'package:food_store/restaurant/model/restaurant.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_store/routes/route_path.dart';
@@ -84,18 +85,9 @@ class RestaurantCard extends StatelessWidget {
             Positioned(
               bottom: 10,
               right: 10,
-              child: Card(
-                color: Colors.black,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.r),
-                  side: BorderSide(
-                    color: Colors.grey.shade400,
-                    width: 0.1.w,
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(restaurant.rating.toString()),
+              child: XCard(
+                child: Text(
+                  restaurant.rating.toString(),
                 ),
               ),
             ),

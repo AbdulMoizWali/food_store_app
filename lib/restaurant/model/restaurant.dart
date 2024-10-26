@@ -5,6 +5,7 @@ class Restaurant extends Equatable {
   const Restaurant({
     required this.id,
     required this.name,
+    required this.address,
     required this.restaurantLogo,
     required this.restaurantThumbnail,
     this.isFeatured = false,
@@ -16,6 +17,7 @@ class Restaurant extends Equatable {
 
   final String? id;
   final String name;
+  final String address;
   final String restaurantLogo;
   final String restaurantThumbnail;
   final bool isFeatured;
@@ -29,6 +31,7 @@ class Restaurant extends Equatable {
   @override
   List<Object?> get props => [
         name,
+        address,
         restaurantLogo,
         restaurantThumbnail,
         isFeatured,
