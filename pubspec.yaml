@@ -50,6 +50,7 @@ dependencies:
   dio: ^5.7.0
   icons_plus: ^5.0.0
   shared_preferences: ^2.3.2
+  carousel_slider: ^5.0.0
 
 dev_dependencies:
   flutter_test:

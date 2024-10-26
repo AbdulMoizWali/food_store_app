@@ -39,5 +39,9 @@
     "alreadyHaveAnAccount": "Already have an account?",
     "@alreadyHaveAnAccount": {
         "description": "Already have an account Text"
+    },
+    "categories": "Categories",
+    "@categories": {
+        "description": "Categories Text"
     }
 }
